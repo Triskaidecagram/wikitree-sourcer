@@ -1,6 +1,6 @@
 {
   "name": "WikiTree Sourcer",
-  "version": "2.10.6",
+  "version": "2.10.2",
   "description": "WikiTree Sourcer assists in finding and citing genealogy sources for use on wikitree.com.",
   "permissions": ["storage", "contextMenus"],
   "background": {
@@ -58,6 +58,11 @@
       ],
       "run_at": "document_idle",
       "js": ["base/browser/content/content_common.js", "site/ancestry/browser/ancestry_content.js"]
+    },
+    {
+      "matches": ["*://www.archives.bas-rhin.fr/*"],
+      "run_at": "document_idle",
+      "js": ["base/browser/content/content_common.js", "site/aralsace/browser/aralsace_content.js"]
     },
     {
       "matches": ["*://www.archion.de/*"],
@@ -327,6 +332,10 @@
         "*://*.ancestrylibrary.com.au/*",
         "*://*.ancestryheritagequest.com/*"
       ]
+    },
+    {
+      "resources": ["site/aralsace/core/aralsace_extract_data.mjs"],
+      "matches": ["*://archives.bas-rhin.fr/*"]
     },
     {
       "resources": ["site/archion/core/archion_extract_data.mjs"],

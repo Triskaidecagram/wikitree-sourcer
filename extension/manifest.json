@@ -2,9 +2,9 @@
   "name": "WikiTree Sourcer",
   "version": "2.10.6",
   "description": "WikiTree Sourcer assists in finding and citing genealogy sources for use on wikitree.com.",
-  "permissions": ["activeTab", "storage", "contextMenus"],
+  "permissions": ["storage", "contextMenus"],
   "background": {
-    "service_worker": "base/browser/background/background_chrome.mjs",
+    "scripts": ["base/browser/background/background_mv3.mjs"],
     "type": "module"
   },
   "action": {
@@ -59,6 +59,11 @@
       "js": ["base/browser/content/content_common.js", "site/ancestry/browser/ancestry_content.js"]
     },
     {
+      "matches": ["*://archives.bas-rhin.fr/*"],
+      "run_at": "document_idle",
+      "js": ["base/browser/content/content_common.js", "site/aralsace/browser/aralsace_content.js"]
+    },
+    {
       "matches": ["*://www.archion.de/*"],
       "run_at": "document_idle",
       "js": ["base/browser/content/content_common.js", "site/archion/browser/archion_content.js"]
@@ -95,7 +100,7 @@
     },
     {
       "matches": ["*://*.cwgc.org/*"],
-      "run_at": "document_end",
+      "run_at": "document_idle",
       "js": ["base/browser/content/content_common.js", "site/cwgc/browser/cwgc_content.js"]
     },
     {
@@ -167,7 +172,7 @@
     },
     {
       "matches": ["*://www.gro.gov.uk/gro/content/certificates/*"],
-      "run_at": "document_idle",
+      "run_at": "document_end",
       "js": ["base/browser/content/content_common.js", "site/gro/browser/gro_content.js"]
     },
     {
@@ -275,6 +280,13 @@
     "page": "base/browser/options/options.html",
     "open_in_tab": true
   },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y"
+      }
+    }
+  },
   "icons": {
     "16": "images/wikitree_sourcer16.png",
     "32": "images/wikitree_sourcer32.png",
@@ -319,6 +331,10 @@
         "*://*.ancestrylibrary.com.au/*",
         "*://*.ancestryheritagequest.com/*"
       ]
+    },
+    {
+      "resources": ["site/aralsace/core/aralsace_extract_data.mjs"],
+      "matches": ["*://archives.bas-rhin.fr/*"]
     },
     {
       "resources": ["site/archion/core/archion_extract_data.mjs"],
@@ -489,5 +505,14 @@
       "matches": ["*://*.wikipedia.org/*"]
     }
   ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{9c98db38-a25c-475a-bdb9-48f6ec303214}",
+      "strict_min_version": "128.0"
+    },
+    "gecko_android": {
+      "strict_min_version": "128.0"
+    }
+  },
   "manifest_version": 3
 }
