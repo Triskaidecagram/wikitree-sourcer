@@ -29,11 +29,11 @@ function buildAralsaceUrl(ed, builder) {
 }
 
 function buildSourceTitle(ed, gd, builder) {
-  builder.sourceTitle += "Put Source Title here";
+  builder.sourceTitle += ed.town + ", " + ed.recordName;
 }
 
 function buildSourceReference(ed, gd, builder) {
-  builder.sourceReference = "Put Source Reference here";
+  builder.sourceReference =  ed.recordNumber + ", " + "image #" + ed.imageNumber;
 }
 
 function buildRecordLink(ed, gd, builder) {

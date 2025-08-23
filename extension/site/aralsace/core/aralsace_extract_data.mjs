@@ -30,17 +30,31 @@ function extractData(document, url) {
   }
   result.success = false;
 
-  /*
-  const entries = document.querySelectorAll("table > tbody > tr[class^=entrybmd_]");
-  //console.log("entriesQuery size is: " + entriesQuery.length);
-  if (entries.length < 1) {
-    return result;
+  const recordData = document.querySelector("h1.titre_rubrique");
+  if (recordData) {
+    const text = recordData.textContent.trim();
+    const firstDash = text.indexOf("-");
+    const lastDash = text.lastIndexOf("-");
+    if (firstDash !== -1 && lastDash !== -1 && firstDash !== lastDash) {
+      result.town = text.substring(0, firstDash).trim();
+      result.recordNumber = text.substring(lastDash + 1).trim();
+      result.recordName = text.substring(firstDash + 1, lastDash).trim();
+    } else {
+      // fallback if format is unexpected
+      result.town = "";
+      result.recordName = text;
+      result.recordNumber = "";
+    }
   }
-  */
 
+  const paginationContainer = document.getElementById("pagination-container");
+  if (paginationContainer) {
+    const paginationMin = paginationContainer.querySelector(".pagination-min");
+    if (paginationMin) {
+      result.imageNumber = paginationMin.textContent.trim();
+    }
+  }
   result.success = true;
-
-  console.log(result);
 
   return result;
 }
